@@ -1,0 +1,18 @@
+services:
+  db:
+    build: "db-config"
+    image: db
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "127.0.0.1:5432:5432/tcp"
+    hostname: db
+
+  backend:
+    build:
+      context: backend
+      args:
+        - APP_PORT=${APP_PORT}
+    image: backend
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
